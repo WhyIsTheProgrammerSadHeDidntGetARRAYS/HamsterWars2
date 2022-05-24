@@ -1,0 +1,11 @@
+﻿.nav-item {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.nav-item:hover {
+    background-color: #1888ff;
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
+}
