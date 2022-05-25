@@ -94,5 +94,11 @@ namespace Service
             _mapper.Map(updateHamsterDto, hamster);
             await _repositoryManager.SaveAsync();
         }
+        public async Task<HamsterDto> GetRandomHamster(bool trackChanges)
+        {
+            var hamsterEntity = await _repositoryManager.Hamster.GetRandomHamsterAsync(trackChanges);
+            var hamsterDto = _mapper.Map<HamsterDto>(hamsterEntity);
+            return hamsterDto;
+        }
     }
 }

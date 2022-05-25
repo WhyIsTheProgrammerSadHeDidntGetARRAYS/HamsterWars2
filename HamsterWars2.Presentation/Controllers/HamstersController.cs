@@ -28,10 +28,20 @@ namespace HamsterWars2.Presentation.Controllers
 
             return Ok(hamster);
         }
+        [HttpGet("random")]
+        public async Task<IActionResult> GetRandomHamster()
+        {
+            var hamster = await _service.HamsterService.GetRandomHamster(trackChanges: false);
+
+            return Ok(hamster);
+        }
 
         [HttpPost]
         public IActionResult CreateHamster([FromBody] CreateHamsterDto newHamsterDto)
         {
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+            
             var newHamster = _service.HamsterService.CreateHamsterAsync(newHamsterDto);
 
             return CreatedAtRoute("GetHamsterById", new { id = newHamster.Id}, newHamster); //this seems odd.. 
@@ -53,7 +63,7 @@ namespace HamsterWars2.Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHamster(int id)
         {
-            await _service.HamsterService.DeleteHamsterAsync(id, trackChanges: true);
+            await _service.HamsterService.DeleteHamsterAsync(id, trackChanges: false);
 
             return NoContent();
         }

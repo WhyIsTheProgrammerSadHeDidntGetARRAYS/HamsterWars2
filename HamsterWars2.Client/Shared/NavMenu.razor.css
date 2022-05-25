@@ -1,11 +1,16 @@
 ﻿.nav-item {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 60px;
+    padding: 0.5rem 1rem;
 }
 
 .nav-item:hover {
     background-color: #1888ff;
     border-radius: 4px;
     transition: all 0.2s ease-out;
+}
+NavLink .nav-link {
+    color: white;
+    text-decoration: none;
 }

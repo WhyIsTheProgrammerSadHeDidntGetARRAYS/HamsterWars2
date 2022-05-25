@@ -8,9 +8,10 @@ namespace Contracts
         Task<Hamster> GetHamsterByIdAsync(int id, bool trackChanges);
         Task<IEnumerable<Hamster>> GetTopFiveHamstersAsync(bool trackChanges);
         Task<IEnumerable<Hamster>> GetBottomFiveHamstersAsync(bool trackChanges);
-        Task<IEnumerable<Hamster>> GetHamsterCompetitorsAsync(bool trackChanges);
-        Task VoteHamsterAsync(IEnumerable<Hamster> hamsters, bool trackChanges); //should be true here? should be void? same as comment below as well
-        void DeleteHamster(Hamster hamster); //should be true here? maybe remove trackChanges from non read-only queries 
+        Task<IEnumerable<Hamster>> GetHamsterCompetitorsAsync(bool trackChanges); //TODO: Ändra till GetRandomHamster
+        Task<Hamster> GetRandomHamsterAsync(bool trackChanges); //TODO: Ändra till GetRandomHamster
+        Task VoteHamsterAsync(IEnumerable<Hamster> hamsters, bool trackChanges); 
+        void DeleteHamster(Hamster hamster); 
         void CreateHamster(Hamster hamster);
         void UpdateHamster(Hamster hamster);
     }

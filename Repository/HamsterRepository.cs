@@ -47,9 +47,16 @@ namespace Repository
         public void UpdateHamster(Hamster hamster) => 
             Update(hamster);
             
-        public Task<IEnumerable<Hamster>> GetHamsterCompetitorsAsync(bool trackChanges)
+        public async Task<IEnumerable<Hamster>> GetHamsterCompetitorsAsync(bool trackChanges)
         {
-            throw new NotImplementedException();
+            var hamsters = await GetAllHamstersAsync(trackChanges);
+            return hamsters.OrderBy(x => Guid.NewGuid()).Take(2);
+        }
+        public async Task<Hamster> GetRandomHamsterAsync(bool trackChanges)
+        {
+            var hamsters = await GetAllHamstersAsync(trackChanges);
+            var hamsterToReturn = hamsters.OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefault();
+            return hamsterToReturn;
         }
 
         public Task VoteHamsterAsync(IEnumerable<Hamster> hamsters, bool trackChanges)
