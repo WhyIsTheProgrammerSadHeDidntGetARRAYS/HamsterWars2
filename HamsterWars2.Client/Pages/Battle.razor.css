@@ -1,0 +1,60 @@
+﻿.battle-text {
+    text-align: center;
+}
+.battle-title {
+    font-weight: normal;
+    font-size: 40px;
+    position: relative;
+    margin: 40px 0;
+}
+.battle-title::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background-color: darkgray;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: animate 3s linear infinite;
+}
+.container1 {
+    align-items: center;
+    text-align: center;
+    animation: slideInFromLeft 1.5s ease-in;
+    width: 100%;
+    position: relative;
+}
+.photo-gallery {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+.place {
+    position: center;
+}
+
+@keyframes animate {
+    0% {
+        width: 150px;
+    }
+
+    50% {
+        width: 250px;
+    }
+
+    100% {
+        width: 150px;
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(100%); 
+    }
+    100% {
+        transform: translateX(50);
+    }
+}

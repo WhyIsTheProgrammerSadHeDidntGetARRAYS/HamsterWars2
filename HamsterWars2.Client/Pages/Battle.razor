@@ -2,10 +2,22 @@
 @using HamsterWars2.Client.Pages.Components
 
 <PageTitle>Battle</PageTitle>
-<HamsterCardBattle ImageLink="Content/Images/hamster-15.jpg"></HamsterCardBattle>
+<div class="battle-text">
+    <h1 class="battle-title">Battle</h1>
+</div>
+<div class="container1">
+    <div class="photo-gallery">
+        <div class="place">
+            <HamsterCardBattle ImageLink="Content/Images/hamster-15.jpg"></HamsterCardBattle>
+        </div>
+        <div class="place">
+            <HamsterCardBattle ImageLink="Content/Images/hamster-1.jpg"></HamsterCardBattle>
+        </div>
+    </div>
+</div>
 
 @code {
 
-    //TODO: Här ska en request göras för att hämta ut en random hamster, se till att som i förra projektet fixa services som hanterar 
+    //TODO: Här ska en request göras för att hämta ut en random hamster, se till att som i förra projektet fixa services som hanterar
     // HTTP-Requests, fast denna gången med felhantering
 }

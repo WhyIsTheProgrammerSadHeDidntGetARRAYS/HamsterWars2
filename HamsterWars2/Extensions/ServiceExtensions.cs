@@ -1,5 +1,7 @@
 ﻿using Contracts;
+using Entities.Models;
 using LoggerService;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Context;
@@ -40,6 +42,20 @@ namespace HamsterWars2.Extensions
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-        }     
+        }
+        
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            var builder = services.AddIdentity<User, IdentityRole>(config =>
+            {
+                config.Password.RequireDigit = false;
+                config.Password.RequireLowercase = false;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequiredLength = 5;
+                config.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+        }
     }
 }

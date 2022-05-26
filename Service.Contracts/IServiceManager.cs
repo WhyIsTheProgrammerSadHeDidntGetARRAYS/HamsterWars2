@@ -10,5 +10,6 @@ namespace Service.Contracts
     {
         IHamsterService HamsterService { get; }
         IMatchDataService MatchDataService { get; }
+        IAuthenticationService AuthenticationService { get; }
     }
 }
