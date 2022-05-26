@@ -21,7 +21,7 @@
 .container1 {
     align-items: center;
     text-align: center;
-    animation: slideInFromLeft 1.5s ease-in;
+    animation: slideInFromRight 1.5s ease-in;
     width: 100%;
     position: relative;
 }
@@ -50,7 +50,7 @@
     }
 }
 
-@keyframes slideInFromLeft {
+@keyframes slideInFromRight {
     0% {
         transform: translateX(100%); 
     }
