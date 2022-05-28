@@ -1,23 +1,52 @@
 ﻿@page "/battle";
-@using HamsterWars2.Client.Pages.Components
+@inject IHttpRequestService _service;
 
 <PageTitle>Battle</PageTitle>
+
 <div class="battle-text">
     <h1 class="battle-title">Battle</h1>
 </div>
-<div class="container1">
-    <div class="photo-gallery">
-        <div class="place">
-            <HamsterCardBattle ImageLink="Content/Images/hamster-15.jpg"></HamsterCardBattle>
-        </div>
-        <div class="place">
-            <HamsterCardBattle ImageLink="Content/Images/hamster-1.jpg"></HamsterCardBattle>
+
+@if (HamsterOne != null && HamsterTwo != null)
+{
+    <div class="container1">
+        <div class="photo-gallery">
+            <div class="place">
+                <HamsterCardBattle ImageLink="@HamsterOne.ImageUrl" HamsterName="@HamsterOne.Name">
+                    <ChildContent>
+                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterOne.Name)">VOTE</a>
+                    </ChildContent>
+                </HamsterCardBattle>
+            </div>
+            <div class="place">
+                <HamsterCardBattle ImageLink="@HamsterTwo.ImageUrl" HamsterName="@HamsterTwo.Name">
+                    <ChildContent>
+                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterTwo.Name)">VOTE</a>
+                    </ChildContent>
+                </HamsterCardBattle>
+            </div>
         </div>
     </div>
-</div>
+}
 
 @code {
 
-    //TODO: Här ska en request göras för att hämta ut en random hamster, se till att som i förra projektet fixa services som hanterar
-    // HTTP-Requests, fast denna gången med felhantering
+    private HamsterDto HamsterOne { get; set; }
+    private HamsterDto HamsterTwo { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // HTTP-Requests, fast denna gången med felhantering
+        HamsterOne = await _service.GetRandomHamsterAsync();
+        HamsterTwo = await _service.GetRandomHamsterAsync();
+
+        while (HamsterTwo.Id == HamsterOne.Id)
+        {
+            HamsterTwo = await _service.GetRandomHamsterAsync();
+        }
+    }
+    private void MatchComplete(string name)
+    {
+        Console.WriteLine($"{name} won!"); //test så att klienten känner igen vilken hamster man klickat på
+    }
 }

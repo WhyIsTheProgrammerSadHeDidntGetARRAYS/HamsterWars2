@@ -1,13 +1,19 @@
-﻿
-<div class="card" style="width: 18rem;">
+﻿<div class="card" style="width: 18rem;">
     <img class="card-img-top" src="@ImageLink" />
     <div class="card-body">
-        <h3 class="card-title">NAME</h3>
-        <a class="btn btn-primary">VOTE</a>
+        <h3 class="card-title">@HamsterName</h3>
+        @ChildContent
     </div>
 </div>
 
 @code {
     [Parameter]
     public string ImageLink { get; set; }
+    
+    [Parameter]
+    public string HamsterName { get; set; }
+    
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
 }

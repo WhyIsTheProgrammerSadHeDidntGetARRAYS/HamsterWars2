@@ -15,8 +15,8 @@ namespace HamsterWars2.Presentation.Controllers
         {
             _service = service;
         }
-        [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] CreateUserDto createUserDto)
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto createUserDto)
         {
             
             if (!ModelState.IsValid)
@@ -31,6 +31,16 @@ namespace HamsterWars2.Presentation.Controllers
             }
             return StatusCode(201);
 
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserAuthenticationDto user)
+        {
+            var validateUser = await _service.AuthenticationService.ValidateUser(user);
+            
+            if(!validateUser)
+                return Unauthorized();
+            
+            return Ok(new { Token = await _service.AuthenticationService.CreateToken() }); // this should probably return a custom response message? not sure
         }
     }
 }

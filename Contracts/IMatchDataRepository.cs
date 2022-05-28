@@ -11,5 +11,7 @@ namespace Contracts
     {
         Task<IEnumerable<MatchData>> GetMatchesAsync(bool trackChanges);
         Task<MatchData> GetMatchAsync(int id, bool trackChanges);
+        void RegisterMatchData(MatchData matchData);
+        void RemoveMatchData(MatchData matchData);
     }
 }

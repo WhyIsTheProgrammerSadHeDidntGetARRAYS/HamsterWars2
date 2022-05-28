@@ -1,31 +1,70 @@
 ﻿@page "/gallery";
+@inject IHttpRequestService httpService;
 
-<div class="container">
-    <h1 class="photo-gallery-title">Photo Gallery</h1>
-    <div class="photo-gallery">
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
-        </div>
-        <div class="pic place">
-            <img src="Content/Images/hamster-1.jpg" />
+@if (Hamsters != null)
+{
+    <div class="container">
+        <h1 class="photo-gallery-title">Photo Gallery</h1>
+        <div class="photo-gallery">
+            @foreach (var hamster in Hamsters)
+            {
+                <div class="pic place">
+                    <img src="@hamster.ImageUrl" />
+                    <div class="img-overlay">
+                        <div class="image-title">@hamster.Name</div>
+                        <div class="image-description">
+                            Wins: @hamster.Wins
+                            Defeats: @hamster.Defeats
+                        </div>
+                    </div>
+                </div>
+            }
+            @*ha kvar understående för test-data då design inte är klar*@
+            @*<div class="pic place">
+                    <img src="Content/Images/hamster-1.jpg" />
+                    <div class="img-overlay">
+                        <div class="image-title">NAME</div>
+                        <div class="image-description">
+                            WINS
+                            LOSSES
+                        </div>
+                    </div>
+                </div>
+                <div class="pic place">
+                <img src="Content/Images/hamster-1.jpg" />
+                </div>
+                <div class="pic place">
+                <img src="Content/Images/hamster-1.jpg" />
+                </div>
+                <div class="pic place">
+                <img src="Content/Images/hamster-1.jpg" />
+                </div>
+                <div class="pic place">
+                <img src="Content/Images/hamster-1.jpg" />
+                </div>
+                <div class="pic place">
+                <img src="Content/Images/hamster-1.jpg" />
+                </div>
+                <div class="pic place">
+                    <img src="Content/Images/hamster-1.jpg" />
+                    <div class="img-overlay">
+                        <div class="image-title">NAME</div>
+                        <div class="image-description">
+                            WINS
+                            LOSSES
+                        </div>
+                    </div>
+                </div>*@
         </div>
     </div>
-</div>
+}
+
+
+@code {
+    IEnumerable<HamsterDto> Hamsters { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Hamsters = await httpService.GetHamstersAsync();
+    }
+}

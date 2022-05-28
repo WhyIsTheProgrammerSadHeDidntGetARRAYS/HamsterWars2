@@ -21,7 +21,7 @@ namespace HamsterWars2
 
             CreateMap<UpdateHamsterDto, Hamster>();
 
-            CreateMap<CreateUserDto, User>();
+            CreateMap<UserRegistrationDto, User>();
         }
     }
 }

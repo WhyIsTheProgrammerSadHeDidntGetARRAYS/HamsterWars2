@@ -2,11 +2,7 @@
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Repository.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Repository
 {
@@ -23,5 +19,9 @@ namespace Repository
         public async Task<MatchData> GetMatchAsync(int id, bool trackChanges) =>
             await FindByCondition(m => m.Id == id, trackChanges)
             .FirstOrDefaultAsync();
+
+        public void RegisterMatchData(MatchData matchData) => Create(matchData);
+
+        public void RemoveMatchData(MatchData matchData) => Delete(matchData);
     }
 }
