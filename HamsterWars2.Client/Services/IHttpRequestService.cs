@@ -11,5 +11,7 @@ namespace HamsterWars2.Client.Services
     {
         Task<IEnumerable<HamsterDto>> GetHamstersAsync();
         Task<HamsterDto> GetRandomHamsterAsync();
+        //Task<bool> VoteForHamster(HamsterDto hamster);
+        Task<bool> VoteForHamster(MatchCompletedDto hamster);
     }
 }

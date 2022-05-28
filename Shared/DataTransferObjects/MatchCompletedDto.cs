@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public class MatchCompleted
+    public class MatchCompletedDto
     {
         public HamsterDto? HamsterCompetitor { get; set; }
         public bool MatchWon { get; set; }

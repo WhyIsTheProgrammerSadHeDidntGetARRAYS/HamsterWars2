@@ -13,5 +13,8 @@ namespace Shared.DataTransferObjects
         public int Age { get; set; }
         public string? Loves { get; set; }
         public string? FavoriteFood { get; set; }
+        public int TotalGames { get; set; }
+        public int Wins { get; set; }
+        public int Defeats { get; set; }
     }
 }

@@ -14,14 +14,14 @@
             <div class="place">
                 <HamsterCardBattle ImageLink="@HamsterOne.ImageUrl" HamsterName="@HamsterOne.Name">
                     <ChildContent>
-                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterOne.Name)">VOTE</a>
+                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterOne)">VOTE</a>
                     </ChildContent>
                 </HamsterCardBattle>
             </div>
             <div class="place">
                 <HamsterCardBattle ImageLink="@HamsterTwo.ImageUrl" HamsterName="@HamsterTwo.Name">
                     <ChildContent>
-                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterTwo.Name)">VOTE</a>
+                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterTwo)">VOTE</a>
                     </ChildContent>
                 </HamsterCardBattle>
             </div>
@@ -45,8 +45,17 @@
             HamsterTwo = await _service.GetRandomHamsterAsync();
         }
     }
-    private void MatchComplete(string name)
+    private async Task MatchComplete(HamsterDto hamster)
     {
-        Console.WriteLine($"{name} won!"); //test så att klienten känner igen vilken hamster man klickat på
+        if (hamster.Id == HamsterOne.Id)
+        {
+            await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterOne, MatchWon = true });
+            await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterTwo, MatchWon = false });
+        }
+        else
+        {
+            await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterTwo, MatchWon = true });
+            await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterOne, MatchWon = false });
+        }
     }
 }
