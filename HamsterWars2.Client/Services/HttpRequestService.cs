@@ -71,7 +71,7 @@ namespace HamsterWars2.Client.Services
 
             var response = await _httpClient.PutAsJsonAsync($"api/hamsters/{hamster.HamsterCompetitor.Id}", hamster.HamsterCompetitor);
 
-            return response.StatusCode == HttpStatusCode.OK;
+            return response.StatusCode == HttpStatusCode.NoContent; //no content eftersom att det är vad api'n returnerar
         }
     }
 }
