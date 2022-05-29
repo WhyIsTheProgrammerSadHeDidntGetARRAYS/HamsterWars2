@@ -1,5 +1,6 @@
 ﻿@page "/battle";
 @inject IHttpRequestService _service;
+@inject NavigationManager navManager;
 
 <PageTitle>Battle</PageTitle>
 
@@ -14,18 +15,24 @@
             <div class="place">
                 <HamsterCardBattle ImageLink="@HamsterOne.ImageUrl" HamsterName="@HamsterOne.Name">
                     <ChildContent>
-                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterOne)">VOTE</a>
+                        <button class="btn btn-primary" disabled=@IsTaskRunning @onclick="() => MatchComplete(HamsterOne)">VOTE</button>
                     </ChildContent>
                 </HamsterCardBattle>
             </div>
             <div class="place">
                 <HamsterCardBattle ImageLink="@HamsterTwo.ImageUrl" HamsterName="@HamsterTwo.Name">
                     <ChildContent>
-                        <a class="btn btn-primary" @onclick="() => MatchComplete(HamsterTwo)">VOTE</a>
+                        <button class="btn btn-primary" disabled=@IsTaskRunning @onclick="() => MatchComplete(HamsterTwo)">VOTE</button>
                     </ChildContent>
                 </HamsterCardBattle>
             </div>
         </div>
+        @if (IsBattleDone)
+        {
+            <div class="btn-start-new-battle">
+                <button class="btn btn-primary" @onclick="StartNewBattle">Start new battle</button>
+            </div>
+        }
     </div>
 }
 
@@ -33,6 +40,9 @@
 
     private HamsterDto HamsterOne { get; set; }
     private HamsterDto HamsterTwo { get; set; }
+
+    private bool IsBattleDone = false;
+    private bool IsTaskRunning = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,11 +61,22 @@
         {
             await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterOne, MatchWon = true });
             await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterTwo, MatchWon = false });
+            await _service.RegisterMatchData(new MatchDataDto { WinnerId = HamsterOne.Id, LoserId = HamsterTwo.Id, TimeStamp = DateTime.Now });
         }
         else
         {
             await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterTwo, MatchWon = true });
             await _service.VoteForHamster(new MatchCompletedDto { HamsterCompetitor = HamsterOne, MatchWon = false });
+            await _service.RegisterMatchData(new MatchDataDto { WinnerId = HamsterTwo.Id, LoserId = HamsterOne.Id, TimeStamp = DateTime.Now });
         }
+        IsTaskRunning = true;
+        IsBattleDone = true;
+    }
+
+    private async Task StartNewBattle()
+    {
+        await OnInitializedAsync();
+        IsBattleDone = false;
+        IsTaskRunning = false;
     }
 }

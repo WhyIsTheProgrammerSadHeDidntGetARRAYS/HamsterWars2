@@ -10,8 +10,9 @@ namespace Contracts
     public interface IMatchDataRepository
     {
         Task<IEnumerable<MatchData>> GetMatchesAsync(bool trackChanges);
+        Task<IEnumerable<MatchData>> GetMatchesByConditionAsync(int hamsterId, bool trackChanges);
         Task<MatchData> GetMatchAsync(int id, bool trackChanges);
-        void RegisterMatchData(MatchData matchData);
-        void RemoveMatchData(MatchData matchData);
+        void CreateMatch(MatchData matchData);
+        void RemoveMatch(MatchData matchData);
     }
 }

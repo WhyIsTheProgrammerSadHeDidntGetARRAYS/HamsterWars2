@@ -8,7 +8,7 @@ namespace Entities.Exceptions
 {
     public class CreateHamsterBadRequestException : BadRequestException
     {
-        public CreateHamsterBadRequestException() : base("Bad request from client")
+        public CreateHamsterBadRequestException() : base("Bad request from client when trying to add new hamster")
         { }
     }
 }

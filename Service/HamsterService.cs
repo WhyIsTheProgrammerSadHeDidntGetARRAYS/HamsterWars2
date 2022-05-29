@@ -39,6 +39,22 @@ namespace Service
 
             return hamsterDto;
         }
+        public async Task<IEnumerable<HamsterDto>> GetSpecificHamsterWins(int id, bool trackChanges)
+        {
+            var hamsters = await GetAllHamstersAsync(trackChanges);
+            
+            if (hamsters == null)
+                throw new HamsterNotFoundException(0);
+            
+            var matches = await _repositoryManager.MatchData.GetMatchesByConditionAsync(id, trackChanges);
+
+            var hamsterDefeats = (from m in matches
+                                  join winner in hamsters on m.WinnerId equals winner.Id
+                                  join loser in hamsters on m.LoserId equals loser.Id
+                                  select loser).ToList();
+            
+            return hamsterDefeats;
+        }
 
         public async Task<IEnumerable<HamsterDto>> GetTopFiveHamstersAsync(bool trackChanges)
         {

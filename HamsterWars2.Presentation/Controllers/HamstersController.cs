@@ -48,6 +48,13 @@ namespace HamsterWars2.Presentation.Controllers
 
             //return Ok(newHamster);
         }
+        [HttpGet("matchwinners/{winnerId}")]
+        public async Task<IActionResult> GetSpecificHamsterWins(int winnerId)
+        {
+            var defeatedHamsters = await _service.HamsterService.GetSpecificHamsterWins(winnerId, trackChanges: false);
+
+            return Ok(defeatedHamsters);
+        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateHamster(int id, [FromBody] UpdateHamsterDto updateHamsterDto)

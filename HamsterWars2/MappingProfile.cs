@@ -18,6 +18,8 @@ namespace HamsterWars2
             CreateMap<CreateHamsterDto, Hamster>(); 
 
             CreateMap<MatchData, MatchDataDto>();
+            
+            CreateMap<MatchDataDto, MatchData>();
 
             CreateMap<UpdateHamsterDto, Hamster>();
 

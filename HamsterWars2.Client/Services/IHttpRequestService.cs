@@ -1,17 +1,16 @@
 ﻿using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HamsterWars2.Client.Services
 {
     public interface IHttpRequestService
     {
         Task<IEnumerable<HamsterDto>> GetHamstersAsync();
+        Task<HamsterDto> GetHamsterByIdAsync(int id);
         Task<HamsterDto> GetRandomHamsterAsync();
-        //Task<bool> VoteForHamster(HamsterDto hamster);
         Task<bool> VoteForHamster(MatchCompletedDto hamster);
+        Task<bool> RegisterMatchData(MatchDataDto matchDataDto);
+        Task<IEnumerable<HamsterDto>> GetTopFiveHamsters();
+        Task<IEnumerable<HamsterDto>> GetBottomFiveHamsters();
+        Task<IEnumerable<HamsterDto>> GetSpecificHamsterMatchData(int hamsterId);
     }
 }

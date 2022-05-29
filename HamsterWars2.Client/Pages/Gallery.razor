@@ -14,21 +14,26 @@
                         <div class="image-title">@hamster.Name</div>
                         <div class="image-description">
                             Wins: @hamster.Wins
+                        </div>
+                        <div class="image-description">
                             Defeats: @hamster.Defeats
+                        </div>
+                        <div class="image-description">
+                            <button class="btn btn-primary" @onclick="(() => { GetId(hamster.Id); OpenDialog(); })">Match History</button>
                         </div>
                     </div>
                 </div>
             }
             @*ha kvar understående för test-data då design inte är klar*@
             @*<div class="pic place">
-                    <img src="Content/Images/hamster-1.jpg" />
-                    <div class="img-overlay">
-                        <div class="image-title">NAME</div>
-                        <div class="image-description">
-                            WINS
-                            LOSSES
-                        </div>
-                    </div>
+                <img src="Content/Images/hamster-1.jpg" />
+                <div class="img-overlay">
+                <div class="image-title">NAME</div>
+                <div class="image-description">
+                WINS
+                LOSSES
+                </div>
+                </div>
                 </div>
                 <div class="pic place">
                 <img src="Content/Images/hamster-1.jpg" />
@@ -46,23 +51,42 @@
                 <img src="Content/Images/hamster-1.jpg" />
                 </div>
                 <div class="pic place">
-                    <img src="Content/Images/hamster-1.jpg" />
-                    <div class="img-overlay">
-                        <div class="image-title">NAME</div>
-                        <div class="image-description">
-                            WINS
-                            LOSSES
-                        </div>
-                    </div>
+                <img src="Content/Images/hamster-1.jpg" />
+                <div class="img-overlay">
+                <div class="image-title">NAME</div>
+                <div class="image-description">
+                WINS
+                LOSSES
+                </div>
+                </div>
                 </div>*@
         </div>
     </div>
+    @if (DialogOpen)
+    {
+        <MatchStatisticsModal Title="Hamsters Defeated" OnClose=@CloseDialog Id=@Id></MatchStatisticsModal>
+    }
 }
 
 
 @code {
     IEnumerable<HamsterDto> Hamsters { get; set; }
+    private bool DialogOpen { get; set; }
 
+    private int Id { get; set; }
+    
+    public void GetId(int id)
+    {
+        Id = id;
+    }
+    private void OpenDialog()
+    {
+        DialogOpen = true;
+    }
+    private void CloseDialog()
+    {
+        DialogOpen = false;
+    }
     protected override async Task OnInitializedAsync()
     {
         Hamsters = await httpService.GetHamstersAsync();

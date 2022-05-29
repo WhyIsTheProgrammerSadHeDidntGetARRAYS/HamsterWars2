@@ -10,17 +10,17 @@
     margin: 40px 0;
 }
 
-    .photo-gallery-title::before {
-        content: '';
-        position: absolute;
-        width: 100px;
-        height: 3px;
-        background-color: darkgray;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: animate 3s linear infinite;
-    }
+.photo-gallery-title::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background-color: darkgray;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: animate 3s linear infinite;
+}
 
 @keyframes animate {
     0% {

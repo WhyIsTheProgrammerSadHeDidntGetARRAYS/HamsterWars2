@@ -16,12 +16,20 @@ namespace Repository
             .OrderBy(m => m.Id)
             .ToListAsync();
 
+        public async Task<IEnumerable<MatchData>> GetMatchesByConditionAsync(int hamsterId, bool trackChanges) =>
+           await FindByCondition(m => m.WinnerId == hamsterId, trackChanges)
+           .OrderBy(m => m.Id)
+           .Distinct()
+           .ToListAsync();
+
         public async Task<MatchData> GetMatchAsync(int id, bool trackChanges) =>
             await FindByCondition(m => m.Id == id, trackChanges)
             .FirstOrDefaultAsync();
 
-        public void RegisterMatchData(MatchData matchData) => Create(matchData);
+        public void CreateMatch(MatchData matchData) => Create(matchData);
 
-        public void RemoveMatchData(MatchData matchData) => Delete(matchData);
+        public void RemoveMatch(MatchData matchData) => Delete(matchData);
+
+
     }
 }

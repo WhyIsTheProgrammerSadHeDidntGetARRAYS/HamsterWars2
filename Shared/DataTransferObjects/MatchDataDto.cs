@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public class MatchDataDto
+    public class MatchDataDto //TODO: Behöver en creatematch dto också, och den ska se ut såhär. Matchdatadto behöver nog ha id parameter också
     {
         public int WinnerId { get; set; }
         public int LoserId { get; set; }

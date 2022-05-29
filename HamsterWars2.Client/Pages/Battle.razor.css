@@ -38,6 +38,11 @@
     margin-left: auto;
     margin-right: auto;
 }
+.btn-start-new-battle {
+    position: center;
+    align-content: center;
+    align-items: center;
+}
 
 @keyframes animate {
     0% {
