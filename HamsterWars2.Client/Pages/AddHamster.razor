@@ -2,33 +2,53 @@
 @inject IHttpRequestService httpService;
 @inject NavigationManager navigationManager;
 
-<p>hej</p>
-@*<div class="hej">
-    <div class="col-md-4 offset-md-3 mt-5">
-        <div class="card">
-            <h4 class="card-header">Add hamster</h4>
-            <div class="card-body">
-                <EditForm Model="@NewHamster" OnValidSubmit="HandleValidSubmit">
-                    <DataAnnotationsValidator />
-                    <div class="form-group">
-                        <label>Name</label>
-                        <InputText @bind-Value="NewHamster.Name" class="form-control" />
-                        <ValidationMessage For="@(() => NewHamster.Name)" />
+<div class="col-md-4 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Add hamster</h4>
+        <div class="card-body">
+            <EditForm Model="@NewHamster" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="NewHamster.Name" class="form-control" />
+                    <ValidationMessage For="@(() => NewHamster.Name)" />
+                </div>
+                <div class="form-group">
+                    <label>Image path</label>
+                    <InputText @bind-Value="NewHamster.ImageUrl" class="form-control" />
+                    <ValidationMessage For="@(() => NewHamster.ImageUrl)" />
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <InputNumber @bind-Value="NewHamster.Age" class="form-control" />
+                    <ValidationMessage For="@(() => NewHamster.Age)" />
+                </div>
+                <div class="form-group">
+                    <label>What does your hamster love to do?</label>
+                    <InputText @bind-Value="NewHamster.Loves" class="form-control" />
+                    <ValidationMessage For="@(() => NewHamster.Loves)" />
+                </div>
+                <div class="form-group">
+                    <label>Favorite food</label>
+                    <InputText @bind-Value="NewHamster.FavoriteFood" class="form-control" />
+                    <ValidationMessage For="@(() => NewHamster.FavoriteFood)" />
+                </div>
+                <br />
+                <button class="btn btn-primary" type="submit">
+                    Add
+                </button>
+                @if (IsValidSubmit)
+                {
+                    <div class="text text-alert">
+                        Added hamster
                     </div>
-                    <div class="form-group">
-                        <label>Age</label>
-                        <InputNumber @bind-Value="NewHamster.Age" class="form-control" />
-                        <ValidationMessage For="@(() => NewHamster.Age)" />
-                    </div>
-                    <br />
-                    <button class="btn btn-primary" type="submit">
-                        Add
-                    </button>
-                </EditForm>
-            </div>
+                }
+            </EditForm>
         </div>
     </div>
-</div>*@
+</div>
+
+
 
 @code {
     private CreateHamsterDto NewHamster = new CreateHamsterDto();
