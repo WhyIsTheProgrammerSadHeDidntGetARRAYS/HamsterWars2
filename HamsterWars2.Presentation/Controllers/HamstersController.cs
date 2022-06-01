@@ -44,8 +44,8 @@ namespace HamsterWars2.Presentation.Controllers
             
             var newHamster = _service.HamsterService.CreateHamsterAsync(newHamsterDto);
 
-            return CreatedAtRoute("GetHamsterById", new { id = newHamster.Id}, newHamster); //this seems odd.. 
-
+            //return CreatedAtRoute("GetHamsterById", new { id = newHamster.Id}, newHamster); //this seems odd.. 
+            return StatusCode(201);
             //return Ok(newHamster);
         }
         [HttpGet("matchwinners/{winnerId}")]
@@ -60,7 +60,7 @@ namespace HamsterWars2.Presentation.Controllers
         public async Task<IActionResult> UpdateHamster(int id, [FromBody] UpdateHamsterDto updateHamsterDto)
         {
             if (updateHamsterDto == null)
-                return BadRequest("Object not valid");
+                return BadRequest("Object was null");
             
             await _service.HamsterService.UpdateHamsterAsync(id, updateHamsterDto, trackChanges: true);
 

@@ -1,22 +1,15 @@
-﻿﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Poppins', sans-serif;
-}
-* {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h1:focus {
     outline: none;
 }
-.centerDiv {
-    text-align: center;
-}
 
 a, .btn-link {
-    color: #0077cc;
+    color: #0071c1;
 }
 
 .btn-primary {
@@ -69,7 +62,3 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
-
-.form-control {
-    width: 50%;
-}

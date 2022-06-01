@@ -12,7 +12,6 @@ namespace Entities.Models
         public string? Name { get; set; }
         [Required(ErrorMessage = "Image must be provided.")]
         public string? ImageUrl { get; set; }
-        public int Likes { get; set; } // TODO: Remove Likes, this property is not needed
         [Range(1, 5,
             ErrorMessage = "Age must be between 1-5")]
         public int Age { get; set; }

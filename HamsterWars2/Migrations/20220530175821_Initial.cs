@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HamsterWars2.Migrations
 {
-    public partial class CreatingIdentityTables : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,41 @@ namespace HamsterWars2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hamsters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Loves = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FavoriteFood = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    TotalGames = table.Column<int>(type: "int", nullable: false),
+                    Wins = table.Column<int>(type: "int", nullable: false),
+                    Defeats = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hamsters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MatchesData",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WinnerId = table.Column<int>(type: "int", nullable: false),
+                    LoserId = table.Column<int>(type: "int", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchesData", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +191,30 @@ namespace HamsterWars2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1c3e8d9d-5ac1-4618-a6fe-a34f6b00dd18", "232cd42f-119e-4697-8ec6-23c2995261e6", "Admin", "ADMIN" },
+                    { "930293a5-5219-4a81-b569-27a18d04436d", "08951dca-d299-46c3-a8d9-0b2e166a5d54", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Hamsters",
+                columns: new[] { "Id", "Age", "Defeats", "FavoriteFood", "ImageUrl", "Loves", "Name", "TotalGames", "Wins" },
+                values: new object[,]
+                {
+                    { 1, 1, 0, "Chinese food", "/Content/Images/hamster-1.jpg", "World of Warcraft", "Scooby", 0, 0 },
+                    { 2, 2, 0, "Broccoli", "/Content/Images/hamster-2.jpg", "Rugby", "Shaggy", 0, 0 },
+                    { 3, 3, 0, "Chicken and Rice", "/Content/Images/hamster-3.jpg", "Football", "Fred", 0, 0 },
+                    { 4, 1, 0, "Pizza", "/Content/Images/hamster-4.jpg", "Skateboarding", "George", 0, 0 },
+                    { 5, 1, 0, "Chinese food", "/Content/Images/hamster-5.jpg", "Running", "Harry", 0, 0 },
+                    { 6, 1, 0, "McDonalds", "/Content/Images/hamster-6.jpg", "Golfing", "Ron", 0, 0 },
+                    { 7, 1, 0, "Carrots", "/Content/Images/hamster-7.jpg", "Sleeping", "Dumbledore", 0, 0 },
+                    { 8, 1, 0, "Pasta", "/Content/Images/hamster-35.jpg", "Liseberg", "Göran", 0, 0 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -212,6 +271,12 @@ namespace HamsterWars2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Hamsters");
+
+            migrationBuilder.DropTable(
+                name: "MatchesData");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

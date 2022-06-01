@@ -31,7 +31,7 @@ namespace Repository
         // även fast ingen matchdata finns
         public async Task<IEnumerable<Hamster>> GetTopFiveHamstersAsync(bool trackChanges) => 
             await FindAll(trackChanges)
-            .OrderBy(h => h.Wins)
+            .OrderByDescending(h => h.Wins)
             .Take(5)
             .ToListAsync();
 

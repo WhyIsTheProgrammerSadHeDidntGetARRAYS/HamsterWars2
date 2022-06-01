@@ -1,0 +1,53 @@
+﻿@inject IHttpRequestService httpService;
+@page "/statistics"
+
+@if(TopFiveHamsters != null && BottomFiveHamsters != null)
+{
+    <div class="container">
+    <h1 class="photo-gallery-title">Top five hamsters</h1>
+    <div class="photo-gallery">
+        @foreach (var winner in TopFiveHamsters)
+        {
+            <div class="pic place">
+                <img src="@winner.ImageUrl" />
+                <div class="img-overlay">
+                    <div class="image-title">@winner.Name</div>
+                    <div class="image-description">
+                        Wins: @winner.Wins
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@*detta ska jag obviously göra till en komponent på nått sätt*@
+<div class="container">
+    <h1 class="photo-gallery-title">Bottom five hamsters</h1>
+    <div class="photo-gallery">
+        @foreach (var loser in BottomFiveHamsters)
+        {
+            <div class="pic place">
+                <img src="@loser.ImageUrl" />
+                <div class="img-overlay">
+                    <div class="image-title">@loser.Name</div>
+                    <div class="image-description">
+                        Defeats: @loser.Defeats
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+}
+
+
+@code {
+    private IEnumerable<HamsterDto> TopFiveHamsters { get; set; }
+    private IEnumerable<HamsterDto> BottomFiveHamsters { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        TopFiveHamsters = await httpService.GetTopFiveHamsters();
+        BottomFiveHamsters = await httpService.GetBottomFiveHamsters();
+    }
+}

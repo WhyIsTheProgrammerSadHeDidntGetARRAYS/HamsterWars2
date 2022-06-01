@@ -1,0 +1,53 @@
+﻿@page "/addhamster"
+@inject IHttpRequestService httpService;
+@inject NavigationManager navigationManager;
+
+<p>hej</p>
+@*<div class="hej">
+    <div class="col-md-4 offset-md-3 mt-5">
+        <div class="card">
+            <h4 class="card-header">Add hamster</h4>
+            <div class="card-body">
+                <EditForm Model="@NewHamster" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="NewHamster.Name" class="form-control" />
+                        <ValidationMessage For="@(() => NewHamster.Name)" />
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <InputNumber @bind-Value="NewHamster.Age" class="form-control" />
+                        <ValidationMessage For="@(() => NewHamster.Age)" />
+                    </div>
+                    <br />
+                    <button class="btn btn-primary" type="submit">
+                        Add
+                    </button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@code {
+    private CreateHamsterDto NewHamster = new CreateHamsterDto();
+    private bool IsValidSubmit = false;
+
+    private async Task HandleSubmit()
+    {
+        var isSuccess = await httpService.CreateHamster(NewHamster);
+        if (isSuccess)
+        {
+            IsValidSubmit = true;
+            StateHasChanged();
+            //Thread.Sleep(4000);
+            //navigationManager.NavigateTo("/gallery");
+        }
+        else
+        {
+            // visa nått lämpigt felmeddelande på klienten/navigera till någon error-page
+        }
+    }
+
+}

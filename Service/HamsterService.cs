@@ -41,10 +41,15 @@ namespace Service
         }
         public async Task<IEnumerable<HamsterDto>> GetSpecificHamsterWins(int id, bool trackChanges)
         {
-            var hamsters = await GetAllHamstersAsync(trackChanges);
+            var hamster = await GetHamsterByIdAsync(id, trackChanges);
+
+            if (hamster == null)
+                throw new HamsterNotFoundException(id);
             
+            var hamsters = await GetAllHamstersAsync(trackChanges);
+
             if (hamsters == null)
-                throw new HamsterNotFoundException(0);
+                return new List<HamsterDto>(); //TODO: Fixa eget custom error-message, använde denna så länge
             
             var matches = await _repositoryManager.MatchData.GetMatchesByConditionAsync(id, trackChanges);
 

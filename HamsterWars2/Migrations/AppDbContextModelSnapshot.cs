@@ -45,9 +45,6 @@ namespace HamsterWars2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
                     b.Property<string>("Loves")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -76,7 +73,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Chinese food",
                             ImageUrl = "/Content/Images/hamster-1.jpg",
-                            Likes = 0,
                             Loves = "World of Warcraft",
                             Name = "Scooby",
                             TotalGames = 0,
@@ -89,7 +85,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Broccoli",
                             ImageUrl = "/Content/Images/hamster-2.jpg",
-                            Likes = 0,
                             Loves = "Rugby",
                             Name = "Shaggy",
                             TotalGames = 0,
@@ -102,7 +97,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Chicken and Rice",
                             ImageUrl = "/Content/Images/hamster-3.jpg",
-                            Likes = 0,
                             Loves = "Football",
                             Name = "Fred",
                             TotalGames = 0,
@@ -115,7 +109,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Pizza",
                             ImageUrl = "/Content/Images/hamster-4.jpg",
-                            Likes = 0,
                             Loves = "Skateboarding",
                             Name = "George",
                             TotalGames = 0,
@@ -128,7 +121,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Chinese food",
                             ImageUrl = "/Content/Images/hamster-5.jpg",
-                            Likes = 0,
                             Loves = "Running",
                             Name = "Harry",
                             TotalGames = 0,
@@ -141,7 +133,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "McDonalds",
                             ImageUrl = "/Content/Images/hamster-6.jpg",
-                            Likes = 0,
                             Loves = "Golfing",
                             Name = "Ron",
                             TotalGames = 0,
@@ -154,7 +145,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Carrots",
                             ImageUrl = "/Content/Images/hamster-7.jpg",
-                            Likes = 0,
                             Loves = "Sleeping",
                             Name = "Dumbledore",
                             TotalGames = 0,
@@ -167,7 +157,6 @@ namespace HamsterWars2.Migrations
                             Defeats = 0,
                             FavoriteFood = "Pasta",
                             ImageUrl = "/Content/Images/hamster-35.jpg",
-                            Likes = 0,
                             Loves = "Liseberg",
                             Name = "Göran",
                             TotalGames = 0,
@@ -299,15 +288,15 @@ namespace HamsterWars2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7e14ca20-e0a0-446a-995a-f8bbbc027509",
-                            ConcurrencyStamp = "71963cf3-b2e3-4915-a0fc-81244a3315fa",
+                            Id = "930293a5-5219-4a81-b569-27a18d04436d",
+                            ConcurrencyStamp = "08951dca-d299-46c3-a8d9-0b2e166a5d54",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "bb5b5b9b-8288-4d3d-908d-dde4b326cfbc",
-                            ConcurrencyStamp = "12ffab7d-3c21-4aa7-a6c7-1b02e5123e85",
+                            Id = "1c3e8d9d-5ac1-4618-a6fe-a34f6b00dd18",
+                            ConcurrencyStamp = "232cd42f-119e-4697-8ec6-23c2995261e6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

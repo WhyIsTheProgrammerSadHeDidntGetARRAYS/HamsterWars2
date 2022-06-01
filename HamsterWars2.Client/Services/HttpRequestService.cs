@@ -56,7 +56,7 @@ namespace HamsterWars2.Client.Services
         }
         public async Task<IEnumerable<HamsterDto>> GetTopFiveHamsters()
         {
-            var response = await _httpClient.GetAsync("api/hamsters/bottomfive");
+            var response = await _httpClient.GetAsync("api/hamsters/topfive");
 
             if (!response.IsSuccessStatusCode)
                 throw new ApplicationException("Something went wrong");
@@ -69,7 +69,7 @@ namespace HamsterWars2.Client.Services
         }
         public async Task<IEnumerable<HamsterDto>> GetBottomFiveHamsters()
         {
-            var response = await _httpClient.GetAsync("api/hamsters/topfive");
+            var response = await _httpClient.GetAsync("api/hamsters/bottomfive");
 
             if (!response.IsSuccessStatusCode)
                 throw new ApplicationException("Something went wrong");
@@ -123,6 +123,13 @@ namespace HamsterWars2.Client.Services
             var hamstersDefeated = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             
             return hamstersDefeated;
+        }
+
+        public async Task<bool> CreateHamster(CreateHamsterDto newHamster)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/hamsters", newHamster);
+
+            return response.StatusCode == HttpStatusCode.Created;
         }
     }
 }

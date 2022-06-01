@@ -1,6 +1,7 @@
 ﻿@page "/gallery";
 @inject IHttpRequestService httpService;
 
+
 @if (Hamsters != null)
 {
     <div class="container">
@@ -9,57 +10,31 @@
             @foreach (var hamster in Hamsters)
             {
                 <div class="pic place">
-                    <img src="@hamster.ImageUrl" />
+                    <img src="@hamster.ImageUrl" onerror="this.src='/Content/Images/hamstahh.png'" />
                     <div class="img-overlay">
-                        <div class="image-title">@hamster.Name</div>
+                        
+                        <div class="image-title">
+                            @hamster.Name
+                        </div>
+                        
                         <div class="image-description">
                             Wins: @hamster.Wins
                         </div>
+                        
                         <div class="image-description">
                             Defeats: @hamster.Defeats
                         </div>
+                        
                         <div class="image-description">
                             <button class="btn btn-primary" @onclick="(() => { GetId(hamster.Id); OpenDialog(); })">Match History</button>
+                        </div>
+
+                        <div class="image-description">
+                            <button class="btn btn-danger btn-sm">Delete</button>
                         </div>
                     </div>
                 </div>
             }
-            @*ha kvar understående för test-data då design inte är klar*@
-            @*<div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                <div class="img-overlay">
-                <div class="image-title">NAME</div>
-                <div class="image-description">
-                WINS
-                LOSSES
-                </div>
-                </div>
-                </div>
-                <div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                </div>
-                <div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                </div>
-                <div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                </div>
-                <div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                </div>
-                <div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                </div>
-                <div class="pic place">
-                <img src="Content/Images/hamster-1.jpg" />
-                <div class="img-overlay">
-                <div class="image-title">NAME</div>
-                <div class="image-description">
-                WINS
-                LOSSES
-                </div>
-                </div>
-                </div>*@
         </div>
     </div>
     @if (DialogOpen)
@@ -70,12 +45,22 @@
 
 
 @code {
+    
     IEnumerable<HamsterDto> Hamsters { get; set; }
     private bool DialogOpen { get; set; }
 
     private int Id { get; set; }
     
-    public void GetId(int id)
+    protected override async Task OnInitializedAsync()
+    {
+        Hamsters = await httpService.GetHamstersAsync();
+    }
+    private async Task DeleteHamster(int id)
+    {
+        
+    }
+
+    private void GetId(int id)
     {
         Id = id;
     }
@@ -87,8 +72,5 @@
     {
         DialogOpen = false;
     }
-    protected override async Task OnInitializedAsync()
-    {
-        Hamsters = await httpService.GetHamstersAsync();
-    }
+    
 }
