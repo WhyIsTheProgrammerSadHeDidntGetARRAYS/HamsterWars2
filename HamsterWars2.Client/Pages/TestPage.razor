@@ -1,0 +1,14 @@
+﻿@page "/test"
+<AuthorizeView>
+        <Authorized>
+            The user @context.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value is authenticated
+        </Authorized>
+        <NotAuthorized>
+            <h4>Not authorized</h4>
+        </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+
+}

@@ -20,6 +20,7 @@ namespace HamsterWars2.Client.Authentication
         {
             _httpClient = httpClient;
             _localStorage = localStorage;
+            _anonymous = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -36,14 +37,14 @@ namespace HamsterWars2.Client.Authentication
             return new AuthenticationState(
                 new ClaimsPrincipal(
                     new ClaimsIdentity(
-                        JwtParser.ParseClaimsFromJwt(token)/*, "jwtAuthType"*/)));
+                        JwtParser.ParseClaimsFromJwt(token), "jwtAuthType")));
         }
 
         public void NotifyUserAuthentication(string token)
         {
             var authenticatedUser = new ClaimsPrincipal(
                     new ClaimsIdentity(
-                        JwtParser.ParseClaimsFromJwt(token)/*, "jwtAuthType"*/));
+                        JwtParser.ParseClaimsFromJwt(token), "jwtAuthType"));
 
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
             

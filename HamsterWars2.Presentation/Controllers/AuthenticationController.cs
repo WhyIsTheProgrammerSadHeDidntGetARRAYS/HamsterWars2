@@ -38,7 +38,7 @@ namespace HamsterWars2.Presentation.Controllers
             
             if(!validateUser)
                 return Unauthorized();
-            
+            //TODO: Fixa så att detta returnerar samma model/dto som finns i Client projektet MEN flytta den klassen till shared projektet
             return Ok(new { token = await _service.AuthenticationService.CreateToken(), userName = user.Username }); // this should probably return a custom response message? not sure
         }
     }

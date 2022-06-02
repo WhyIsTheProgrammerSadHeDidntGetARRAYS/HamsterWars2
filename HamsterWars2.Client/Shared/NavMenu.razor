@@ -23,26 +23,44 @@
                 </NavLink>
             </li>
         </ul>
-        @*den här biten flyttar ul/li links till höger*@
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <NavLink class="nav-link" href="login">
-                    Login
-                </NavLink>
-            </li>
-            <li class="nav-item">
-                <NavLink class="nav-link" href="gallery">
-                    Register
-                </NavLink>
-            </li>
-        </ul>
+        <AuthorizeView>
+            <Authorized>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="logged-in-li">
+                        <p class="nav-link">Welcome, @context.User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value</p>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="logout">
+                            Logout
+                        </NavLink>
+                    </li>
+                </ul>
+            </Authorized>
+            <NotAuthorized>
+                @*den här biten flyttar ul/li links till höger*@
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="login">
+                            Login
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="gallery">
+                            Register
+                        </NavLink>
+                    </li>
+                </ul>
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
 </nav>
 
 @code {
+
     private bool collapseNavMenu = true;
     private string NavBarCssClass => collapseNavMenu ? null : "show";
     private string NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
+
 
     private void ToggleNavMenu()
     {
