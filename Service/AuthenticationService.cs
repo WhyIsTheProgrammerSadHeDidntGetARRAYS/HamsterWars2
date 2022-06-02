@@ -23,7 +23,7 @@ namespace Service
         private readonly ILoggerManager _logger;
         private readonly IConfiguration _configuration;
 
-        private User _user;
+        private User? _user;
 
         public AuthenticationService(UserManager<User> userManager, IMapper mapper,
             ILoggerManager logger, IConfiguration configuration)

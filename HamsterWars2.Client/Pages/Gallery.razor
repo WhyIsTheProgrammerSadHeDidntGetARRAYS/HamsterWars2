@@ -2,35 +2,41 @@
 @inject IHttpRequestService httpService;
 
 
-@if (Hamsters != null)
+@if (Hamsters == null)
+{
+    <h1>Loading...</h1>
+}
+else
 {
     <div class="container">
         <h1 class="photo-gallery-title">Photo Gallery</h1>
+        @*den här knappen under ska vara authorized view*@
+        <a href="/addhamster" class="btn btn-primary" id="addhamster">Add new hamster</a>
         <div class="photo-gallery">
             @foreach (var hamster in Hamsters)
             {
                 <div class="pic place">
                     <img src="@hamster.ImageUrl" onerror="this.src='/Content/Images/hamstahh.png'" />
                     <div class="img-overlay">
-                        
+
                         <div class="image-title">
                             @hamster.Name
                         </div>
-                        
+
                         <div class="image-description">
                             Wins: @hamster.Wins
                         </div>
-                        
+
                         <div class="image-description">
                             Defeats: @hamster.Defeats
                         </div>
-                        
+
                         <div class="image-description">
                             <button class="btn btn-primary" @onclick="(() => { GetId(hamster.Id); OpenDialog(); })">Match History</button>
                         </div>
 
                         <div class="image-description">
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => DeleteHamster(hamster.Id)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -44,20 +50,23 @@
 }
 
 
+
+
 @code {
-    
+
     IEnumerable<HamsterDto> Hamsters { get; set; }
     private bool DialogOpen { get; set; }
 
     private int Id { get; set; }
-    
+
     protected override async Task OnInitializedAsync()
     {
         Hamsters = await httpService.GetHamstersAsync();
     }
     private async Task DeleteHamster(int id)
     {
-        
+        await httpService.DeleteHamster(id);
+        await OnInitializedAsync();
     }
 
     private void GetId(int id)
@@ -72,5 +81,5 @@
     {
         DialogOpen = false;
     }
-    
+
 }

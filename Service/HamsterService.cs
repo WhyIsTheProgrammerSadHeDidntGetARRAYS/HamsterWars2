@@ -56,7 +56,7 @@ namespace Service
             var hamsterDefeats = (from m in matches
                                   join winner in hamsters on m.WinnerId equals winner.Id
                                   join loser in hamsters on m.LoserId equals loser.Id
-                                  select loser).ToList();
+                                  select loser).ToList().Distinct();
             
             return hamsterDefeats;
         }

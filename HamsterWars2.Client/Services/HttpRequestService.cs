@@ -28,6 +28,7 @@ namespace HamsterWars2.Client.Services
 
             return hamsters;
         }
+        
         public async Task<HamsterDto> GetHamsterByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"api/hamsters/{id}");
@@ -41,6 +42,7 @@ namespace HamsterWars2.Client.Services
 
             return hamster;
         }
+        
         public async Task<HamsterDto> GetRandomHamsterAsync()
         {
             var response = await _httpClient.GetAsync("api/hamsters/random"); //TODO: should probably not hardcode uri's
@@ -50,10 +52,20 @@ namespace HamsterWars2.Client.Services
             
             var content = await response.Content.ReadAsStringAsync();
             
-            var hamster = JsonSerializer.Deserialize<HamsterDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); 
+            var hamster = JsonSerializer.Deserialize<HamsterDto>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); 
             
             return hamster;
         }
+        
+        public async Task DeleteHamster(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"api/hamsters/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Something went wrong when trying to delete hamster with id {id}");
+        }
+        
         public async Task<IEnumerable<HamsterDto>> GetTopFiveHamsters()
         {
             var response = await _httpClient.GetAsync("api/hamsters/topfive");
@@ -63,10 +75,12 @@ namespace HamsterWars2.Client.Services
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var bottomFiveHamsters = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var bottomFiveHamsters = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             return bottomFiveHamsters;
         }
+        
         public async Task<IEnumerable<HamsterDto>> GetBottomFiveHamsters()
         {
             var response = await _httpClient.GetAsync("api/hamsters/bottomfive");
@@ -76,12 +90,13 @@ namespace HamsterWars2.Client.Services
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var topFiveHamsters = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var topFiveHamsters = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             return topFiveHamsters;
         }
 
-        public async Task<bool> VoteForHamster(MatchCompletedDto hamster)
+        public async Task VoteForHamster(MatchCompletedDto hamster)
         {
             if (hamster == null)
                 throw new ArgumentNullException(nameof(hamster));
@@ -97,9 +112,9 @@ namespace HamsterWars2.Client.Services
             
             hamster.HamsterCompetitor.TotalGames++;
 
-            var response = await _httpClient.PutAsJsonAsync($"api/hamsters/{hamster.HamsterCompetitor.Id}", hamster.HamsterCompetitor);
+            /*var response = */await _httpClient.PutAsJsonAsync($"api/hamsters/{hamster.HamsterCompetitor.Id}", hamster.HamsterCompetitor);
 
-            return response.StatusCode == HttpStatusCode.NoContent; //no content eftersom att det är vad api'n returnerar
+            //return response.StatusCode == HttpStatusCode.NoContent; //no content eftersom att det är vad api'n returnerar
         }
 
         public async Task<bool> RegisterMatchData(MatchDataDto matchData)
@@ -111,6 +126,7 @@ namespace HamsterWars2.Client.Services
 
             return response.StatusCode == HttpStatusCode.OK;
         }
+        
         public async Task<IEnumerable<HamsterDto>> GetSpecificHamsterMatchData(int hamsterId)
         {
             var response = await _httpClient.GetAsync($"api/hamsters/matchwinners/{hamsterId}");
@@ -120,7 +136,8 @@ namespace HamsterWars2.Client.Services
             
             var content = await response.Content.ReadAsStringAsync();
             
-            var hamstersDefeated = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var hamstersDefeated = JsonSerializer.Deserialize<IEnumerable<HamsterDto>>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             
             return hamstersDefeated;
         }

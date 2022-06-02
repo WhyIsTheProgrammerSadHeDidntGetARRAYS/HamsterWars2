@@ -18,7 +18,6 @@ namespace HamsterWars2.Presentation.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto createUserDto)
         {
-            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -40,7 +39,7 @@ namespace HamsterWars2.Presentation.Controllers
             if(!validateUser)
                 return Unauthorized();
             
-            return Ok(new { Token = await _service.AuthenticationService.CreateToken() }); // this should probably return a custom response message? not sure
+            return Ok(new { token = await _service.AuthenticationService.CreateToken(), userName = user.Username }); // this should probably return a custom response message? not sure
         }
     }
 }

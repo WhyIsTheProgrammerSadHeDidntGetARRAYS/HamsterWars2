@@ -1,12 +1,23 @@
 ﻿@page "/login"
+@inject IAuthenticationService authService;
+@inject NavigationManager navigationManager;
 
-<div class="logincontainer">
+
+<div class="container">
+    
+    @if (authError)
+    {
+        <div class="alert alert-danger">
+            <p>@authenticationErrorText</p>
+        </div>
+    }
     <div class="col-md-4 offset-md-3 mt-5">
         <div class="card">
             <h4 class="card-header">Log in</h4>
             <div class="card-body">
-                <EditForm Model="@UserAuth" OnValidSubmit="HandleValidSubmit">
+                <EditForm Model="@UserAuth" OnValidSubmit="HandleValidLogin">
                     <DataAnnotationsValidator />
+                    @*<ValidationSummary />*@
                     <div class="form-group">
                         <label>Username</label>
                         <InputText @bind-Value="UserAuth.Username" class="form-control" />
@@ -29,10 +40,22 @@
 
 @code {
     private UserAuthenticationDto UserAuth = new();
-
-    private void HandleValidSubmit()
+    private bool authError { get; set; }
+    private string authenticationErrorText = "";
+    private async Task HandleValidLogin()
     {
+        var token = await authService.Login(UserAuth);
 
+        if (token != null)
+        {
+            authError = false;
+            navigationManager.NavigateTo("/"); //test: se ifall man får sin token i localstorage om en valid login görs(fungerade)
+        }
+        else
+        {
+            authError = true;
+            authenticationErrorText = "There was an error when trying to log in.";
+        }
     }
 
 }
