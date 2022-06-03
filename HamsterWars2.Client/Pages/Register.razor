@@ -72,7 +72,11 @@
         }
         else
         {
-            authenticationErrorText = "Something went wrong when trying to register an account";
+            foreach (var error in registerUserResponse.Errors)
+            {
+                authenticationErrorText = error;
+            }
+            //authenticationErrorText = "Something went wrong when trying to register an account";
             authError = true;
         }
     }
