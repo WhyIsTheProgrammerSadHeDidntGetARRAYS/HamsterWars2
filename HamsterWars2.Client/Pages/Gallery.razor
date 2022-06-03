@@ -2,6 +2,7 @@
 @inject IHttpRequestService httpService;
 
 
+
 @if (Hamsters == null)
 {
     <h1>Loading...</h1>
@@ -34,10 +35,13 @@ else
                         <div class="image-description">
                             <button class="btn btn-primary" @onclick="(() => { GetId(hamster.Id); OpenDialog(); })">Match History</button>
                         </div>
-
-                        <div class="image-description">
-                            <button class="btn btn-danger btn-sm" @onclick="() => DeleteHamster(hamster.Id)">Delete</button>
-                        </div>
+                        <AuthorizeView>
+                            <Authorized>
+                                <div class="image-description">
+                                    <button class="btn btn-danger btn-sm" @onclick="() => DeleteHamster(hamster.Id)">Delete</button>
+                                </div>
+                            </Authorized>
+                        </AuthorizeView>
                     </div>
                 </div>
             }
@@ -48,8 +52,6 @@ else
         <MatchStatisticsModal Title="Hamsters Defeated" OnClose=@CloseDialog Id=@Id></MatchStatisticsModal>
     }
 }
-
-
 
 
 @code {

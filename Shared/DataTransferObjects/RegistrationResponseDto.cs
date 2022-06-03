@@ -9,7 +9,6 @@ namespace Shared.DataTransferObjects
     public class RegistrationResponseDto
     {
         public bool IsSuccessfulRegistration { get; set; }
-        public string? Token { get; set; }
         public IEnumerable<string>? Errors { get; set; }
     }
 }

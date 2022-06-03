@@ -6,7 +6,7 @@ namespace HamsterWars2.Client.Services
     public interface IAuthenticationService
     {
         Task<AuthenticatedUserModel> Login(UserAuthenticationDto user);
-        Task<bool> Register(UserRegistrationDto newUser);
+        Task<RegistrationResponseDto> Register(UserRegistrationDto newUser);
         Task Logout();
     }
 }

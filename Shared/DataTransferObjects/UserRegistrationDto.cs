@@ -15,9 +15,10 @@ namespace Shared.DataTransferObjects
         public string? UserName { get; set; }
         [Required(ErrorMessage = "Password must be provided.")]
         public string? Password { get; set; }
+        
         [Compare("Password", ErrorMessage = "The password and confirmation password does not match.")]
         public string? ConfirmPassword { get; set; }
         public string? Email { get; set; }
-        public ICollection<string>? Roles { get; set; }
+        //public ICollection<string>? Roles { get; set; }
     }
 }

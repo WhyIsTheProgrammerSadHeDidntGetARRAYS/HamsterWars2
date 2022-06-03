@@ -55,11 +55,19 @@ namespace HamsterWars2.Client.Services
             return result;
         }
 
-        public async Task<bool> Register(UserRegistrationDto newUser)
+        public async Task<RegistrationResponseDto> Register(UserRegistrationDto newUser)
         {
             var response = await _httpClient.PostAsJsonAsync("api/authentication/register", newUser);
-
-            return response.StatusCode == HttpStatusCode.Created;
+            
+            //if (!response.IsSuccessStatusCode)
+            //    throw new Exception("Something went wrong with the request to the server");
+                
+            var content = await response.Content.ReadAsStringAsync();
+            
+            var result = JsonSerializer.Deserialize<RegistrationResponseDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            
+            return result;
+            
         }
 
         public async Task Logout()

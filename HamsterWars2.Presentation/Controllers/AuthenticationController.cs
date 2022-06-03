@@ -26,9 +26,16 @@ namespace HamsterWars2.Presentation.Controllers
             var result = await _service.AuthenticationService.RegisterUser(createUserDto);
             if (!result.Succeeded)
             {
-                return BadRequest("Modelstate invalid");
+                var errors = result.Errors.ToList();
+
+                var registrationResponse = new RegistrationResponseDto
+                {
+                    IsSuccessfulRegistration = false,
+                    Errors = errors.Select(e => e.Description)
+                };
+                return BadRequest(registrationResponse);
             }
-            return StatusCode(201);
+            return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = true});
 
         }
         [HttpPost("login")]
