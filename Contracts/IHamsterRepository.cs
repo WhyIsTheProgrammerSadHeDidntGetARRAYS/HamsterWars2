@@ -8,7 +8,7 @@ namespace Contracts
         Task<Hamster> GetHamsterByIdAsync(int id, bool trackChanges);
         Task<IEnumerable<Hamster>> GetTopFiveHamstersAsync(bool trackChanges);
         Task<IEnumerable<Hamster>> GetBottomFiveHamstersAsync(bool trackChanges);
-        Task<IEnumerable<Hamster>> GetHamsterCompetitorsAsync(bool trackChanges); //TODO: Ändra till GetRandomHamster
+        Task<IEnumerable<Hamster>> GetHamsterCompetitorsAsync(bool trackChanges);
         Task<Hamster> GetRandomHamsterAsync(bool trackChanges);
         Task VoteHamsterAsync(IEnumerable<Hamster> hamsters, bool trackChanges); 
         void DeleteHamster(Hamster hamster); 

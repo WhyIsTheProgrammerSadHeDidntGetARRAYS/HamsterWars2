@@ -49,5 +49,12 @@ namespace HamsterWars2.Presentation.Controllers
 
             return Ok(match);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteHamster(int id)
+        {
+            await _service.MatchDataService.DeleteMatchRow(id, trackChanges: false);
+
+            return NoContent();
+        }
     }
 }

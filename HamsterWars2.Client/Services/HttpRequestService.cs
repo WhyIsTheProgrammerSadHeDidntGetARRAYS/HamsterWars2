@@ -45,7 +45,7 @@ namespace HamsterWars2.Client.Services
         
         public async Task<HamsterDto> GetRandomHamsterAsync()
         {
-            var response = await _httpClient.GetAsync("api/hamsters/random"); //TODO: should probably not hardcode uri's
+            var response = await _httpClient.GetAsync("api/hamsters/random");
             
             if (!response.IsSuccessStatusCode)
                 throw new ApplicationException($"The response from the server failed. Reason: {response.ReasonPhrase}");
@@ -56,6 +56,19 @@ namespace HamsterWars2.Client.Services
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); 
             
             return hamster;
+        }
+        public async Task<IEnumerable<MatchResultsDto>> GetHamsterMatchesAsync()
+        {
+            var response = await _httpClient.GetAsync("api/hamsters/hamstermatches");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Something went wrong when trying to fetch the hamsters");
+
+            var content = await response.Content.ReadAsStringAsync();
+            
+            var result = JsonSerializer.Deserialize<IEnumerable<MatchResultsDto>>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return result;
         }
         
         public async Task DeleteHamster(int id)
@@ -147,6 +160,14 @@ namespace HamsterWars2.Client.Services
             var response = await _httpClient.PostAsJsonAsync("api/hamsters", newHamster);
 
             return response.StatusCode == HttpStatusCode.Created;
+        }
+
+        public async Task DeleteMatchRow(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"api/match/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Something went wrong when trying to delete matchrow with id {id}");
         }
     }
 }

@@ -13,5 +13,6 @@ namespace Service.Contracts
         Task<MatchDataDto> GetMatchAsync(int id, bool trackChanges);
         Task<IEnumerable<MatchDataDto>> GetSpecificMatchesAsync(int hamsterId, bool trackChanges);
         Task<MatchDataDto> CreateMatch(MatchDataDto matchDataDto);
+        Task DeleteMatchRow(int id, bool trackChanges);
     }
 }

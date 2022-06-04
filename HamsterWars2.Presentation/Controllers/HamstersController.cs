@@ -35,6 +35,18 @@ namespace HamsterWars2.Presentation.Controllers
 
             return Ok(hamster);
         }
+        [HttpGet("hamstermatches")]
+        public async Task<IActionResult> GetAllHamsterMatches()
+        {
+            var hamsters = await _service.HamsterService.GetAllHamsterMatches(trackChanges: false);
+            
+            if(hamsters == null)
+            {
+                return BadRequest("No data was retrieved from database");
+            }
+            
+            return Ok(hamsters);
+        }
 
         [HttpPost]
         public IActionResult CreateHamster([FromBody] CreateHamsterDto newHamsterDto)

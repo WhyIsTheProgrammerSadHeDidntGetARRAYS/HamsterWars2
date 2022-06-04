@@ -7,6 +7,8 @@ namespace HamsterWars2.Client.Services
         Task<IEnumerable<HamsterDto>> GetHamstersAsync();
         Task<HamsterDto> GetHamsterByIdAsync(int id);
         Task<HamsterDto> GetRandomHamsterAsync();
+        Task<IEnumerable<MatchResultsDto>> GetHamsterMatchesAsync();
+        Task DeleteMatchRow(int id);
         Task DeleteHamster(int id);
         Task<bool> CreateHamster(CreateHamsterDto newHamster);
         Task VoteForHamster(MatchCompletedDto hamster);

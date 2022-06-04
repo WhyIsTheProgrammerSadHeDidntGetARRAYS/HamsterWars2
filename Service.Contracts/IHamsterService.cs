@@ -13,6 +13,7 @@ namespace Service.Contracts
         Task<HamsterDto> GetHamsterByIdAsync(int id, bool trackChanges);
         Task<HamsterDto> GetRandomHamster(bool trackChanges);
         Task<IEnumerable<HamsterDto>> GetSpecificHamsterWins(int id, bool trackChanges);
+        Task<IEnumerable<MatchResultsDto>> GetAllHamsterMatches(bool trackChanges);
         Task<IEnumerable<HamsterDto>> GetTopFiveHamstersAsync(bool trackChanges);
         Task<IEnumerable<HamsterDto>> GetBottomFiveHamstersAsync(bool trackChanges);
         Task<HamsterDto> CreateHamsterAsync(CreateHamsterDto newHamsterDto);

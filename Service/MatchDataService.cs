@@ -82,5 +82,16 @@ namespace Service
             var createdMatch = _mapper.Map<MatchDataDto>(matchEntity);
             return createdMatch;
         }
+
+        public async Task DeleteMatchRow(int id, bool trackChanges)
+        {
+            var match = await _repositoryManager.MatchData.GetMatchAsync(id, trackChanges);
+            
+            if (match == null)
+                throw new MatchNotFoundException(id);
+
+            _repositoryManager.MatchData.RemoveMatch(match);
+            await _repositoryManager.SaveAsync();
+        }
     }
 }

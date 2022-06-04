@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public class MatchDataDto
+    public class MatchResultsDto
     {
-        public int WinnerId { get; set; }
-        public int LoserId { get; set; }
+        public int MatchId { get; set; }
+        public HamsterDto? WinningHamster { get; set; }
+        public HamsterDto? LosingHamster { get; set; }
         public DateTime TimeStamp { get; set; }
     }
 }

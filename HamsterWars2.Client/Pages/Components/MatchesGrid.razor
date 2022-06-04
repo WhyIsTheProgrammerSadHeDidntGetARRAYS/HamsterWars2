@@ -1,25 +1,47 @@
 ﻿@inject IHttpRequestService httpService;
+@page "/history"
 
-@if (HamstersTest == null)
+@if (AllHamsterMatches != null)
 {
-    <h2>Loading...</h2>
-}
-else
-{
-    <p>texttextext</p>
-    
+    <RadzenGrid AllowPaging="true"
+            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            PageSize="10"
+            Data="@AllHamsterMatches"
+            TItem="@MatchResultsDto"
+            ColumnWidth="300px">
+
+        <Columns>
+            <RadzenGridColumn TItem="@MatchResultsDto" Property="MatchId" Title="Match Id"></RadzenGridColumn>
+            <RadzenGridColumn TItem="@MatchResultsDto" Property="AllHamsterMatches.WinningHamster.Name" Title="Winners"></RadzenGridColumn>
+            <RadzenGridColumn TItem="@MatchResultsDto" Property="AllHamsterMatches.LosingHamster.Name" Title="Losers"></RadzenGridColumn>
+            <RadzenGridColumn TItem="@MatchResultsDto" Property="AllHamsterMatches.TimeStamp" Title="Match Date"></RadzenGridColumn>
+            <AuthorizeView>
+                <Authorized>
+                    <RadzenGridColumn TItem="@MatchResultsDto" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                        <Template Context="result">
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Size="ButtonSize.Medium" Click="() => DeleteMatchRow(result.MatchId)">Delete</RadzenButton>
+                        </Template>
+                    </RadzenGridColumn>
+                </Authorized>
+            </AuthorizeView>
+        </Columns>
+
+    </RadzenGrid>
 }
 
 
 @code {
-    private IEnumerable<HamsterDto> HamstersTest { get; set; }
+
+    private IEnumerable<MatchResultsDto> AllHamsterMatches { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        HamstersTest = await httpService.GetHamstersAsync();
+        AllHamsterMatches = await httpService.GetHamsterMatchesAsync();
     }
-    private void Print()
+
+    private async Task DeleteMatchRow(int id)
     {
-        Console.WriteLine("Clicked");
+        await httpService.DeleteMatchRow(id);
+        await OnInitializedAsync();
     }
 }
