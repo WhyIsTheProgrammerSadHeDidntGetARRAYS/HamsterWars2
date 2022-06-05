@@ -56,7 +56,7 @@ namespace Service
         public async Task<string> CreateToken()
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims();
+            var claims = GetClaims();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -68,26 +68,26 @@ namespace Service
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
-        private async Task<List<Claim>> GetClaims()
+        private List<Claim> GetClaims()
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, _user.UserName)
             };
             
-            var roles = await _userManager.GetRolesAsync(_user);
+            //var roles = await _userManager.GetRolesAsync(_user);
             
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
+            //foreach (var role in roles)
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, role));
+            //}
             return claims;
         }
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var tokenOptions = new JwtSecurityToken(
-                issuer: _configuration["JWTSettings:issuer"],
-                audience: _configuration["JWTSettings:audience"],
+                issuer: _configuration["JWTSettings:Issuer"],
+                audience: _configuration["JWTSettings:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: signingCredentials);

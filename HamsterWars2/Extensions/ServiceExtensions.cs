@@ -77,8 +77,8 @@ namespace HamsterWars2.Extensions
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = configuration["JWTSettings:validIssuer"],
-                        ValidAudience = configuration["JWTSettings:validAudience"],
+                        ValidIssuer = configuration["JWTSettings:Issuer"],
+                        ValidAudience = configuration["JWTSettings:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:key"]))
                     };
                 });

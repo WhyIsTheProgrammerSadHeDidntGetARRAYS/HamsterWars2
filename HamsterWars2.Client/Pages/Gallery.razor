@@ -1,8 +1,9 @@
 ﻿@page "/gallery";
 @inject IHttpRequestService httpService;
+@inject AuthenticationStateProvider authState;
 
 
-
+<PageTitle>Gallery</PageTitle>
 @if (Hamsters == null)
 {
     <h1>Loading...</h1>
@@ -63,6 +64,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        var state = await authState.GetAuthenticationStateAsync();
+        Console.WriteLine(state.User);
         Hamsters = await httpService.GetHamstersAsync();
     }
     private async Task DeleteHamster(int id)

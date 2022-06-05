@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 
@@ -14,7 +15,9 @@ namespace HamsterWars2.Presentation.Controllers
         {
             _service = service;
         }
+        
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetHamsters()
         {
             var hamsters = await _service.HamsterService.GetAllHamstersAsync(trackChanges: false);

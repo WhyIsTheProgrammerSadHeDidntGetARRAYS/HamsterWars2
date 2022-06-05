@@ -40,6 +40,9 @@ namespace HamsterWars2.Client.Authentication
                         JwtParser.ParseClaimsFromJwt(token), "jwtAuthType")));
         }
 
+        public async Task<string> GetToken() =>
+            await _localStorage.GetItemAsync<string>("token");
+
         public void NotifyUserAuthentication(string token)
         {
             var authenticatedUser = new ClaimsPrincipal(

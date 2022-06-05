@@ -23,7 +23,12 @@ namespace HamsterWars2.Client.Extensions
         {
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
-            services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+            //services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+        }
+        public static void ConfigureAuthenticationStateProvider(this IServiceCollection services)
+        {
+            services.AddScoped<AuthStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<AuthStateProvider>());
         }
     }
 }

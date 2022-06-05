@@ -12,6 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.ConfigureHttpClient();
 builder.Services.ConfigureHttpRequestService();
 builder.Services.ConfigureAuthService();
+builder.Services.ConfigureAuthenticationStateProvider();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
 

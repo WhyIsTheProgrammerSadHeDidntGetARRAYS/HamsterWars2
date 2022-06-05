@@ -1,5 +1,8 @@
-﻿using Shared.DataTransferObjects;
+﻿using HamsterWars2.Client.Authentication;
+using Microsoft.AspNetCore.Components.Authorization;
+using Shared.DataTransferObjects;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -8,15 +11,22 @@ namespace HamsterWars2.Client.Services
     public class HttpRequestService : IHttpRequestService
     {
         private readonly HttpClient _httpClient;
-        
-        public HttpRequestService(HttpClient httpClient)
+        private readonly AuthStateProvider _authStateProvider;
+
+        public HttpRequestService(HttpClient httpClient, AuthStateProvider authStateProvider)
         {
             _httpClient = httpClient;
+            _authStateProvider = authStateProvider;
         }
 
         //TODO: Dessa två metoder är i princip exakt samma, så detta borde kunna lösas på ett generiskt sätt för get-metoder
         public async Task<IEnumerable<HamsterDto>> GetHamstersAsync()
         {
+            //test för att prova skicka en request till en PROTECTED ENDPOINT, genom att hämta token från localstorage, och skicka den som header i sin request (fungerade)
+            //sätter istället denna i authentication service när man loggar in, så man inte vid varje önskad request, ska behöva hämta token, och skicka den igen
+            //var token = await _authStateProvider.GetToken(); 
+            //_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
             var response = await _httpClient.GetAsync("api/hamsters");
 
             if(!response.IsSuccessStatusCode)

@@ -1,6 +1,8 @@
 ﻿@inject IHttpRequestService httpService;
 @page "/history"
 
+<PageTitle>History</PageTitle>
+
 @if (AllHamsterMatches != null)
 {
     <RadzenGrid AllowPaging="true"
