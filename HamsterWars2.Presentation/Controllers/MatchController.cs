@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -49,7 +50,7 @@ namespace HamsterWars2.Presentation.Controllers
 
             return Ok(match);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> DeleteHamster(int id)
         {
             await _service.MatchDataService.DeleteMatchRow(id, trackChanges: false);

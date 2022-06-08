@@ -51,7 +51,7 @@ namespace HamsterWars2.Presentation.Controllers
             return Ok(hamsters);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public IActionResult CreateHamster([FromBody] CreateHamsterDto newHamsterDto)
         {
             if (!ModelState.IsValid)
@@ -82,7 +82,7 @@ namespace HamsterWars2.Presentation.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public async Task<IActionResult> DeleteHamster(int id)
         {
             await _service.HamsterService.DeleteHamsterAsync(id, trackChanges: false);
