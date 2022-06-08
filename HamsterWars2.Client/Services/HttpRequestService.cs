@@ -23,14 +23,14 @@ namespace HamsterWars2.Client.Services
         public async Task<IEnumerable<HamsterDto>> GetHamstersAsync()
         {
             //test för att prova skicka en request till en PROTECTED ENDPOINT, genom att hämta token från localstorage, och skicka den som header i sin request (fungerade)
-            //sätter istället denna i authentication service när man loggar in, så man inte vid varje önskad request, ska behöva hämta token, och skicka den igen
+            //sätter istället denna logik i authentication service när man loggar in, så man inte vid varje önskad request, ska behöva hämta token, och skicka den igen
             //var token = await _authStateProvider.GetToken(); 
             //_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             
             var response = await _httpClient.GetAsync("api/hamsters");
 
             if(!response.IsSuccessStatusCode)
-                throw new ApplicationException($"Failed to fetch hamsters from server. Reason: {response.ReasonPhrase}");
+                throw new Exception($"Failed to fetch hamsters from server. Reason: {response.ReasonPhrase}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -58,7 +58,7 @@ namespace HamsterWars2.Client.Services
             var response = await _httpClient.GetAsync("api/hamsters/random");
             
             if (!response.IsSuccessStatusCode)
-                throw new ApplicationException($"The response from the server failed. Reason: {response.ReasonPhrase}");
+                throw new Exception($"The response from the server failed. Reason: {response.ReasonPhrase}");
             
             var content = await response.Content.ReadAsStringAsync();
             
@@ -94,7 +94,7 @@ namespace HamsterWars2.Client.Services
             var response = await _httpClient.GetAsync("api/hamsters/topfive");
 
             if (!response.IsSuccessStatusCode)
-                throw new ApplicationException("Something went wrong");
+                throw new Exception("Something went wrong when fetching data from the server");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -109,7 +109,7 @@ namespace HamsterWars2.Client.Services
             var response = await _httpClient.GetAsync("api/hamsters/bottomfive");
 
             if (!response.IsSuccessStatusCode)
-                throw new ApplicationException("Something went wrong");
+                throw new Exception("Something went wrong");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -135,9 +135,8 @@ namespace HamsterWars2.Client.Services
             
             hamster.HamsterCompetitor.TotalGames++;
 
-            /*var response = */await _httpClient.PutAsJsonAsync($"api/hamsters/{hamster.HamsterCompetitor.Id}", hamster.HamsterCompetitor);
+            await _httpClient.PutAsJsonAsync($"api/hamsters/{hamster.HamsterCompetitor.Id}", hamster.HamsterCompetitor);
 
-            //return response.StatusCode == HttpStatusCode.NoContent; //no content eftersom att det är vad api'n returnerar
         }
 
         public async Task<bool> RegisterMatchData(MatchDataDto matchData)

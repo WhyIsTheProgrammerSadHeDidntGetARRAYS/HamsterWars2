@@ -3,15 +3,10 @@ using HamsterWars2.Client.Authentication;
 using HamsterWars2.Client.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace HamsterWars2.Client.Services
 {
@@ -58,9 +53,6 @@ namespace HamsterWars2.Client.Services
         public async Task<RegistrationResponseDto> Register(UserRegistrationDto newUser)
         {
             var response = await _httpClient.PostAsJsonAsync("api/authentication/register", newUser);
-            
-            //if (!response.IsSuccessStatusCode)
-            //    throw new Exception("Something went wrong with the request to the server");
                 
             var content = await response.Content.ReadAsStringAsync();
             

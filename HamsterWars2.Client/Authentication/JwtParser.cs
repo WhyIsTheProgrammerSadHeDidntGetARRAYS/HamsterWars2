@@ -1,11 +1,6 @@
-﻿using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace HamsterWars2.Client.Authentication
 {
@@ -30,6 +25,7 @@ namespace HamsterWars2.Client.Authentication
             return claims;
         }
 
+        //använder ej role-based authorization, men kan vara bra att ha ifall jag vill leka vidare med detta senare
         private static void ExtractRolesFromJwt(List<Claim> claims, Dictionary<string, object> keyValuePair)
         {
             keyValuePair.TryGetValue(ClaimTypes.Role, out object roles);

@@ -196,8 +196,8 @@ namespace HamsterWars2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1c3e8d9d-5ac1-4618-a6fe-a34f6b00dd18", "232cd42f-119e-4697-8ec6-23c2995261e6", "Admin", "ADMIN" },
-                    { "930293a5-5219-4a81-b569-27a18d04436d", "08951dca-d299-46c3-a8d9-0b2e166a5d54", "User", "USER" }
+                    { "93a89366-aea9-4b65-bf81-d0722f5a9dd1", "503d9876-b404-4f24-b5a9-0101767e0670", "Admin", "ADMIN" },
+                    { "de91c349-18b8-4937-88fa-898537eb8107", "287fe36c-a5a9-44ba-8a3b-64dc64882e4d", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(

@@ -39,8 +39,9 @@ namespace Service
 
             var result = await _userManager.CreateAsync(user, createUserDto.Password);
 
-            //if (result.Succeeded)
-            //    await _userManager.AddToRolesAsync(user, createUserDto.Roles);
+            //vassego, varje användare blir admin
+            if (result.Succeeded)
+                await _userManager.AddToRoleAsync(user, "Admin");
 
             return result;
         }
@@ -56,7 +57,7 @@ namespace Service
         public async Task<string> CreateToken()
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = GetClaims();
+            var claims = await GetClaims();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -68,19 +69,19 @@ namespace Service
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
-        private List<Claim> GetClaims()
+        private async Task<List<Claim>> GetClaims()
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, _user.UserName)
             };
-            
-            //var roles = await _userManager.GetRolesAsync(_user);
-            
-            //foreach (var role in roles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role));
-            //}
+
+            var roles = await _userManager.GetRolesAsync(_user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
             return claims;
         }
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)

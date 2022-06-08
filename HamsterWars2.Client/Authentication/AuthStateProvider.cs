@@ -25,7 +25,8 @@ namespace HamsterWars2.Client.Authentication
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await _localStorage.GetItemAsync<string>("token"); //have a seperate method to retrieve token
+            //var token = await _localStorage.GetItemAsync<string>("token"); //have a seperate method to retrieve token
+            var token = await GetToken();
             
             if (string.IsNullOrWhiteSpace(token))
             {

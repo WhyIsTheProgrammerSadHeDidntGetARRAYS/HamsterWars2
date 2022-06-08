@@ -17,7 +17,7 @@ namespace HamsterWars2.Presentation.Controllers
         }
         
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetHamsters()
         {
             var hamsters = await _service.HamsterService.GetAllHamstersAsync(trackChanges: false);

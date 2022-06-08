@@ -2,9 +2,12 @@
 @inject IAuthenticationService authService;
 @inject NavigationManager navigationManager;
 
+
 <PageTitle>Login</PageTitle>
 
-<div class="container">
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="container">
     
     @if (authError)
     {
@@ -16,9 +19,9 @@
         <div class="card">
             <h4 class="card-header">Log in</h4>
             <div class="card-body">
-                <EditForm Model="@UserAuth" OnValidSubmit="HandleValidLogin">
+                <EditForm Model="@UserAuth" OnValidSubmit="HandleValidLogin" Context="byternamnfördetblirkonfliktmedauthviewCONTEXTchildcomponent">
                     <DataAnnotationsValidator />
-                    @*<ValidationSummary />*@
+                    
                     <div class="form-group">
                         <label>Username</label>
                         <InputText @bind-Value="UserAuth.Username" class="form-control" />
@@ -38,11 +41,28 @@
         </div>
     </div>
 </div>
+    </NotAuthorized>
+    <Authorized>
+        @*har bara en fast roll just nu, då jag lägger till alla som admin, men ett exempel för att kolla om rollerna parsas ordentligt*@
+        @if (context.User.IsInRole("Admin"))
+        {
+            <h1>You are logged in as an administrator</h1>
+        }
+        else
+        {
+            <h1>You are already logged in</h1>
+        }
+    </Authorized>
+</AuthorizeView>
+
+
+
 
 @code {
     private UserAuthenticationDto UserAuth = new();
     private bool authError { get; set; }
     private string authenticationErrorText = "";
+
     private async Task HandleValidLogin()
     {
         var token = await authService.Login(UserAuth);
@@ -58,5 +78,4 @@
             authenticationErrorText = "There was an error when trying to log in.";
         }
     }
-
 }
