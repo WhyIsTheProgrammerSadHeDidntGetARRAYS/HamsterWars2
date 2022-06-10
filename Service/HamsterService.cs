@@ -10,14 +10,14 @@ namespace Service
     public class HamsterService : IHamsterService
     {
         private readonly IRepositoryManager _repositoryManager;
-        //private readonly ILoggerManager _loggerManager;
+        private readonly ILoggerManager _loggerManager;
         private readonly IMapper _mapper;
 
-        public HamsterService(IRepositoryManager repositoryManager, /*ILoggerManager loggerManager,*/
+        public HamsterService(IRepositoryManager repositoryManager, ILoggerManager loggerManager,
             IMapper mapper)
         {
             _repositoryManager = repositoryManager;
-            //_loggerManager = loggerManager;
+            _loggerManager = loggerManager;
             _mapper = mapper;
         }
         public async Task<IEnumerable<HamsterDto>> GetAllHamstersAsync(bool trackChanges)

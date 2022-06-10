@@ -58,10 +58,5 @@ namespace Repository
             var hamsterToReturn = hamsters.OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefault();
             return hamsterToReturn;
         }
-
-        public Task VoteHamsterAsync(IEnumerable<Hamster> hamsters, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
