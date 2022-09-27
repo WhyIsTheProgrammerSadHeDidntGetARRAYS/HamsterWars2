@@ -1,13 +1,24 @@
 # HamsterWars2
 
-School project, to learn about .NET Core Web API's.
+### School project, to learn about conecpts related to:
+> - building a scalable REST API
+> - .NET Core
+> - Clean Architecture
+> - Authentication/Authorization
+
+#### More specifically, I used the following:
+> - Dependency injection
+> - Repository design pattern
+> - SQL Server (SSMS)
+> - Entity Framework Core
+> - Data Transfer Objects (DTOs) & AutoMapper
+> - Identity for auth
+> - Testing API Endpoints (SwaggerUI & Postman)
 
 In this project, the API is consumed by a Blazor Webassembly Client, and the the main idea is that you will be given 2 images of random hamsters, and you vote for the
 cutest one.
 
-The project is following a clean architecture, and also following the repository pattern. 
-
-I am also using Identity for authentication and authorization, so make sure that you register as a user, to be able to perform all CRUD operations.
+Make sure that you register as a user, to be able to perform all CRUD operations.
 
 To try the project out, follow these steps:
 
